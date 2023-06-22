@@ -10,6 +10,7 @@ from root.swagger import swagger_urls
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('apps.users.urls')),
+    path('products/', include('apps.products.urls')),
 
     # JWT
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
