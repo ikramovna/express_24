@@ -8,7 +8,7 @@ routers.register('orders', OrderModelViewSet, 'orders')
 routers.register('basket', BasketModelViewSet, 'basket')
 urlpatterns = [
     path('', include(routers.urls)),
-    path('register', RegisterAPIView.as_view(), name='register'),
-    path('logout', LogoutAPIView.as_view(), name='logout'),
+    path('register/', RegisterAPIView.as_view(), name='register'),
+    path('logout/', LogoutAPIView.as_view(), name='logout'),
 
 ]

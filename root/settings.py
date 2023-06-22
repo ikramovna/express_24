@@ -21,6 +21,7 @@ MY_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
+    'mptt',
     'drf_yasg',
     'rest_framework',
     'rest_framework_simplejwt',
@@ -112,12 +113,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR / 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUTH_USER_MODEL = 'auth.User'
+
 # DRF Config
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': [
-        'django_filters.rest_framework.DjangoFilterBackend'
-    ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 10
 }
