@@ -1,11 +1,20 @@
-            Register, Login, Logout ✅
-Users Role   --  My Orders ✅
-            Basket ✅
-
+                    Register, Login, Logout ✅
+Users Role      --  My Orders ✅
+                    Basket ✅
+                    Search ✅
 
 
                      Product, Product Detail ✅
-SuperAmin Role  --   Category ✅
-                     Meal ✅
+                     Category ✅
+SuperAmin Role  --   Meal ✅
+                     Petition
+                     Delivered
+                     Users
+
+
+
+                     Supplier Panel with petition
+Supplier Role   --   Supplier Panel with delivered
+
 
 

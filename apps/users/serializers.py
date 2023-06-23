@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework.serializers import ModelSerializer
 
+from apps.products.models import Product
 from apps.users.models import (Order, Basket)
 
 
@@ -19,4 +20,10 @@ class OrderModelSerializer(ModelSerializer):
 class BasketModelSerializer(ModelSerializer):
     class Meta:
         model = Basket
-        exclude = ()
+        exclude = ('id',)
+
+
+class SearchModelSerializer(ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ('name', 'short_description', 'long_description', 'price')

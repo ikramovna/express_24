@@ -23,7 +23,7 @@ class Meal(Model):
 
 
 class Product(Model):
-    title = CharField(max_length=150)
+    name = CharField(max_length=150)
     price = IntegerField()
     short_description = TextField(blank=True, null=True)
     long_description = TextField(blank=True, null=True)
@@ -34,7 +34,7 @@ class Product(Model):
     image = ImageField(upload_to='product/images/')
 
     def __str__(self):
-        return self.title
+        return self.name
 
 
 # class Petition(Model):
