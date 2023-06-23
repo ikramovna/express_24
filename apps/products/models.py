@@ -11,6 +11,17 @@ class Category(MPTTModel):
         return self.name
 
 
+class Meal(Model):
+    name = CharField(max_length=255)
+    description = TextField()
+    price = CharField(max_length=255)
+    image = ImageField(upload_to='meal/images/')
+    category = ForeignKey('Category', CASCADE)
+
+    def __str__(self):
+        return self.name
+
+
 class Product(Model):
     title = CharField(max_length=150)
     price = IntegerField()
@@ -24,3 +35,13 @@ class Product(Model):
 
     def __str__(self):
         return self.title
+
+
+# class Petition(Model):
+#     name = ForeignKey('auth.User', CASCADE)
+#     meal_name = ForeignKey('Meal', CASCADE)
+#     price = ForeignKey('Meal', CASCADE)
+#     quantity = IntegerField()
+#     all_price = IntegerField()
+#     phone = CharField(max_length=100)
+#     comment = TextField()
