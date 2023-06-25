@@ -23,7 +23,3 @@ class BasketModelSerializer(ModelSerializer):
         exclude = ('id',)
 
 
-class SearchModelSerializer(ModelSerializer):
-    class Meta:
-        model = Product
-        exclude = ()

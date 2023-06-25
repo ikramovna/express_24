@@ -35,3 +35,8 @@ class StaffModelSerializer(ModelSerializer):
     class Meta:
         model = Staff
         fields = '__all__'
+
+class SearchModelSerializer(ModelSerializer):
+    class Meta:
+        model = Product
+        exclude = ()

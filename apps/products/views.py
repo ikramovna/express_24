@@ -1,6 +1,8 @@
+from rest_framework.decorators import action
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import BasePermission
+from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from apps.products.models import (Product, Category, Petition, Staff)
@@ -48,4 +50,10 @@ class PetitionModelViewSet(ModelViewSet):
 class StaffModelViewSet(ModelViewSet):
     queryset = Staff.objects.all()
     serializer_class = StaffModelSerializer
+
     # permission_classes = (IsAdminOrReadOnly,)
+
+    @action(detail=False, methods=['get'])
+    def count_accounts(self, request):
+        count = self.get_queryset().count()
+        return Response({'count': count})

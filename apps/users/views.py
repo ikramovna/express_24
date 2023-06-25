@@ -109,9 +109,3 @@ class BasketModelViewSet(ModelViewSet):
 
 
 # User Search API
-class ProductSearchListAPIView(ListAPIView):
-    queryset = Product.objects.all()
-    serializer_class = SearchModelSerializer
-    filter_backends = [SearchFilter]
-    search_fields = ['name', 'short_description', 'long_description', 'price']
-    permission_classes = [AllowAny]
