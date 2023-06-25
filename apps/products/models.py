@@ -1,5 +1,5 @@
 from django.db.models import (CharField, CASCADE, Model, IntegerField, TextField, DateTimeField, ForeignKey, ImageField,
-                              FloatField)
+                              FloatField, TextChoices)
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 
@@ -36,3 +36,15 @@ class Petition(Model):
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}'
+
+
+class Staff(Model):
+    user = CharField(max_length=255)
+    phone = CharField(max_length=50)
+
+    class Role(TextChoices):
+        ADMIN = 'admin', 'Admin'
+        USER = 'user', 'User'
+        DELIVERER = 'deliverer', 'Deliverer'
+
+    role = CharField(max_length=15, choices=Role.choices)

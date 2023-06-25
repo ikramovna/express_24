@@ -11,6 +11,14 @@ class UserSerializer(ModelSerializer):
         fields = ('first_name', 'last_name', 'email', 'username')
 
 
+class UserForApplicationSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'phone')
+
+
+
+
 class OrderModelSerializer(ModelSerializer):
     class Meta:
         model = Order
