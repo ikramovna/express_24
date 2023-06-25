@@ -11,6 +11,5 @@ urlpatterns = [
     path('', include(routers.urls)),
     path('register/', RegisterAPIView.as_view(), name='register'),
     path('logout/', LogoutAPIView.as_view(), name='logout'),
-    path('search/', ProductSearchListAPIView.as_view()),
 
 ]

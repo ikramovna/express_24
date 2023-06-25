@@ -1,16 +1,14 @@
 from rest_framework import status
 from rest_framework.decorators import action
-from rest_framework.filters import SearchFilter
-from rest_framework.generics import (ListAPIView, get_object_or_404)
-from rest_framework.permissions import (IsAuthenticated, AllowAny)
+from rest_framework.generics import (get_object_or_404)
+from rest_framework.permissions import (IsAuthenticated)
 from rest_framework.response import (Response)
 from rest_framework.views import (APIView)
 from rest_framework.viewsets import (ModelViewSet)
 from rest_framework_simplejwt.tokens import (RefreshToken)
 
-from apps.products.models import (Product)
 from apps.users.models import (Order, Basket)
-from apps.users.serializers import (OrderModelSerializer, BasketModelSerializer, SearchModelSerializer)
+from apps.users.serializers import (OrderModelSerializer, BasketModelSerializer)
 from apps.users.services import (register_service, reset_password_service, reset_password_confirm_service)
 
 

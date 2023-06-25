@@ -57,3 +57,11 @@ class StaffModelViewSet(ModelViewSet):
     def count_accounts(self, request):
         count = self.get_queryset().count()
         return Response({'count': count})
+
+
+class ProductSearchListAPIView(ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = SearchModelSerializer
+    filter_backends = [SearchFilter]
+    search_fields = ['name', 'short_description', 'long_description', 'price']
+    permission_classes = [AllowAny]
