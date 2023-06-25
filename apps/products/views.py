@@ -1,9 +1,11 @@
+from django.db.models import Sum
 from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import RetrieveAPIView, ListAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import BasePermission, AllowAny
 from rest_framework.response import Response
+from rest_framework.status import HTTP_200_OK
 from rest_framework.viewsets import ModelViewSet
 
 from apps.products.models import (Product, Category, Petition, Staff)
@@ -23,9 +25,22 @@ class IsAdminOrReadOnly(BasePermission):
 class ProductModelViewSet(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductModelSerializer
-    pagination_class = PageNumberPagination
+    # pagination_class = PageNumberPagination
     permission_classes = [IsAdminOrReadOnly]
 
+    @action(detail=False, methods=['post'])
+    def count_total_price(self, request):
+        product_ids = request.data.get('pk', [])
+        total_price = 0
+
+        for product_id in product_ids:
+            try:
+                product = Product.objects.get(id=product_id)
+                total_price += product.price
+            except Product.DoesNotExist:
+                pass
+
+        return Response({'total_price': total_price})
 
 # Product Detail
 class ProductDetailRetrieveAPIView(RetrieveAPIView):

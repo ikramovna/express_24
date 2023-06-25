@@ -1,8 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from apps.users.views import (RegisterAPIView, LogoutAPIView, OrderModelViewSet, BasketModelViewSet,
-                              ProductSearchListAPIView)
+from apps.users.views import (RegisterAPIView, LogoutAPIView, OrderModelViewSet, BasketModelViewSet)
 
 routers = DefaultRouter()
 routers.register('orders/', OrderModelViewSet, 'orders')
