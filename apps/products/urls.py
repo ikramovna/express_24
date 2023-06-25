@@ -2,12 +2,12 @@ from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
 from apps.products.views import (CategoryModelViewSet, ProductModelViewSet, ProductDetailRetrieveAPIView,
-                                 MealModelViewSet)
+                                 PetitionModelViewSet)
 
 routers = DefaultRouter()
-routers.register('products/', ProductModelViewSet)
-routers.register('category/', CategoryModelViewSet)
-routers.register('meal/', MealModelViewSet)
+routers.register('products', ProductModelViewSet)
+routers.register('category', CategoryModelViewSet)
+routers.register('petition', PetitionModelViewSet)
 
 
 urlpatterns = [

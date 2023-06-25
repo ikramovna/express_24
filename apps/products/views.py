@@ -3,8 +3,8 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import BasePermission
 from rest_framework.viewsets import ModelViewSet
 
-from apps.products.models import (Product, Category, Meal)
-from apps.products.serializers import (ProductModelSerializer, CategoryModelSerializer, MealModelSerializer)
+from apps.products.models import (Product, Category, Petition)
+from apps.products.serializers import (ProductModelSerializer, CategoryModelSerializer, PetitionModelSerializer)
 
 
 # Permission
@@ -36,8 +36,8 @@ class CategoryModelViewSet(ModelViewSet):
     permission_classes = [IsAdminOrReadOnly]
 
 
-# Meal
-class MealModelViewSet(ModelViewSet):
-    queryset = Meal.objects.all()
-    serializer_class = MealModelSerializer
-    permission_classes = [IsAdminOrReadOnly]
+# Petition API
+class PetitionModelViewSet(ModelViewSet):
+    queryset = Petition.objects.all()
+    serializer_class = PetitionModelSerializer
+    permission_classes = (IsAdminOrReadOnly,)

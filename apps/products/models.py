@@ -1,4 +1,5 @@
-from django.db.models import (CharField, CASCADE, Model, IntegerField, TextField, DateTimeField, ForeignKey, ImageField)
+from django.db.models import (CharField, CASCADE, Model, IntegerField, TextField, DateTimeField, ForeignKey, ImageField,
+                              FloatField)
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 
@@ -11,20 +12,9 @@ class Category(MPTTModel):
         return self.name
 
 
-class Meal(Model):
-    name = CharField(max_length=255)
-    description = TextField()
-    price = CharField(max_length=255)
-    image = ImageField(upload_to='meal/images/')
-    category = ForeignKey('Category', CASCADE)
-
-    def __str__(self):
-        return self.name
-
-
 class Product(Model):
     name = CharField(max_length=150)
-    price = IntegerField()
+    price = FloatField()
     short_description = TextField(blank=True, null=True)
     long_description = TextField(blank=True, null=True)
     quantity = IntegerField()
@@ -37,11 +27,12 @@ class Product(Model):
         return self.name
 
 
-# class Petition(Model):
-#     name = ForeignKey('auth.User', CASCADE)
-#     meal_name = ForeignKey('Meal', CASCADE)
-#     price = ForeignKey('Meal', CASCADE)
-#     quantity = IntegerField()
-#     all_price = IntegerField()
-#     phone = CharField(max_length=100)
-#     comment = TextField()
+class Petition(Model):
+    user = ForeignKey('auth.User', CASCADE)
+    product = ForeignKey(Product, CASCADE)
+    quantity = IntegerField()
+    phone = CharField(max_length=255)
+    comment = TextField()
+
+    def __str__(self):
+        return f'{self.user.first_name} {self.user.last_name}'

@@ -26,4 +26,4 @@ class BasketModelSerializer(ModelSerializer):
 class SearchModelSerializer(ModelSerializer):
     class Meta:
         model = Product
-        fields = ('name', 'short_description', 'long_description', 'price')
+        exclude = ()

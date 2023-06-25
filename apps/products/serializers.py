@@ -1,6 +1,7 @@
 from rest_framework.serializers import ModelSerializer
 
-from apps.products.models import (Product, Category, Meal)
+from apps.products.models import (Product, Category, Petition)
+from apps.users.serializers import UserSerializer
 
 
 class CategoryModelSerializer(ModelSerializer):
@@ -15,7 +16,17 @@ class ProductModelSerializer(ModelSerializer):
         fields = '__all__'
 
 
-class MealModelSerializer(ModelSerializer):
+class PetitionModelSerializer(ModelSerializer):
+    user = UserSerializer()
+    product = ProductModelSerializer()
+
     class Meta:
-        model = Meal
+        model = Petition
         fields = '__all__'
+
+
+# class PetitionForDetailModelSerializer(ModelSerializer):
+#
+#     class Meta:
+#         model = Petition
+#         fields = '__all__'

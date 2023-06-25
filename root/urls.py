@@ -7,6 +7,9 @@ from apps.users.views import ResetPasswordAPIView, PasswordResetConfirmAPIView
 from root.settings import MEDIA_URL, MEDIA_ROOT
 from root.swagger import swagger_urls
 
+
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('apps.users.urls')),
