@@ -1,11 +1,8 @@
-from django.db.models import Sum
 from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import RetrieveAPIView, ListAPIView
-from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import BasePermission, AllowAny
 from rest_framework.response import Response
-from rest_framework.status import HTTP_200_OK
 from rest_framework.viewsets import ModelViewSet
 
 from apps.products.models import (Product, Category, Petition, Staff)
@@ -41,6 +38,7 @@ class ProductModelViewSet(ModelViewSet):
                 pass
 
         return Response({'total_price': total_price})
+
 
 # Product Detail
 class ProductDetailRetrieveAPIView(RetrieveAPIView):

@@ -11,6 +11,12 @@ class UserSerializer(ModelSerializer):
         fields = ('first_name', 'last_name', 'email', 'username')
 
 
+class UserForSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name')
+
+
 class OrderModelSerializer(ModelSerializer):
     class Meta:
         model = Order
@@ -21,5 +27,3 @@ class BasketModelSerializer(ModelSerializer):
     class Meta:
         model = Basket
         exclude = ('id',)
-
-

@@ -1,7 +1,7 @@
 from rest_framework.serializers import ModelSerializer
 
 from apps.products.models import (Product, Category, Petition, Staff)
-from apps.users.serializers import UserSerializer
+from apps.users.serializers import UserSerializer, UserForSerializer
 
 
 class CategoryModelSerializer(ModelSerializer):
@@ -23,7 +23,7 @@ class ProductForDetailModelSerializer(ModelSerializer):
 
 
 class PetitionModelSerializer(ModelSerializer):
-    user = UserSerializer()
+    user = UserForSerializer()
     product = ProductForDetailModelSerializer()
 
     class Meta:
@@ -35,6 +35,7 @@ class StaffModelSerializer(ModelSerializer):
     class Meta:
         model = Staff
         fields = '__all__'
+
 
 class SearchModelSerializer(ModelSerializer):
     class Meta:
