@@ -34,6 +34,12 @@ class Petition(Model):
     phone = CharField(max_length=255)
     comment = TextField()
 
+    class Status(TextChoices):
+        DELIVERED = 'delivered', 'Delivered'
+        NOT_DELIVERED = 'not delivered', 'Not Delivered'
+
+    satus = CharField(max_length=15, choices=Status.choices)
+
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}'
 
