@@ -57,7 +57,15 @@ class CategoryModelViewSet(ModelViewSet):
 class PetitionModelViewSet(ModelViewSet):
     queryset = Petition.objects.all()
     serializer_class = PetitionModelSerializer
+
     # permission_classes = (IsAdminOrReadOnly,)
+
+    # count total_price
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        total_price = sum([product.price * product.quantity for product in queryset])
+        return Response({"total_price": total_price})
 
 
 # Staffs API

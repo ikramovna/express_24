@@ -1,7 +1,7 @@
 from rest_framework.serializers import ModelSerializer
 
 from apps.products.models import (Product, Category, Petition, Staff)
-from apps.users.serializers import UserSerializer, UserForSerializer
+from apps.users.serializers import UserForSerializer
 
 
 class CategoryModelSerializer(ModelSerializer):
@@ -19,7 +19,7 @@ class ProductModelSerializer(ModelSerializer):
 class ProductForDetailModelSerializer(ModelSerializer):
     class Meta:
         model = Product
-        exclude = ('name', 'price',)
+        fields = 'name', 'price'
 
 
 class PetitionModelSerializer(ModelSerializer):
