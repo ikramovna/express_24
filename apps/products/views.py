@@ -81,6 +81,7 @@ class StaffModelViewSet(ModelViewSet):
         return Response({'count': count})
 
 
+# Product Search API
 class ProductSearchListAPIView(ListAPIView):
     queryset = Product.objects.all()
     serializer_class = SearchModelSerializer
