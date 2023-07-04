@@ -2,7 +2,6 @@ from django.contrib.auth.models import AbstractUser
 from django.db.models import (Model, ForeignKey, CASCADE, IntegerField, TextField)
 
 
-
 class Order(Model):
     user = ForeignKey('auth.User', CASCADE)
     product = ForeignKey('products.Product', CASCADE)

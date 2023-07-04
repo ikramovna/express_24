@@ -1,13 +1,18 @@
+from elasticsearch_dsl import Search
 from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import RetrieveAPIView, ListAPIView
 from rest_framework.permissions import BasePermission, AllowAny
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from apps.products.models import (Product, Category, Petition, Staff)
+from apps.products.search_indexes import ProductDocument
 from apps.products.serializers import (ProductModelSerializer, CategoryModelSerializer, PetitionModelSerializer,
                                        StaffModelSerializer, SearchModelSerializer)
+
+from django.conf import settings
 
 
 # Permission
@@ -88,3 +93,18 @@ class ProductSearchListAPIView(ListAPIView):
     filter_backends = [SearchFilter]
     search_fields = ['name', 'short_description', 'long_description', 'price']
     permission_classes = [AllowAny]
+
+
+class SearchProductAPIView(APIView):
+    permission_classes = ()
+
+    def get(self, request):
+        query = request.query_params.get('q', '')
+        s = Search(using=settings.ELASTICSEARCH_DSL['default']['hosts']).index('my_elasticsearch_index')
+        s = s.query('multi_match', query=query, fields=['name', 'short_description', 'long_description'])
+        response = s.execute()
+
+        product_ids = [hit.meta.id for hit in response]
+        products = ProductDocument.mget(product_ids)
+        serializer = ProductModelSerializer(products, many=True)
+        return Response(serializer.data)
