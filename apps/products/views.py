@@ -1,33 +1,26 @@
+from django.conf import settings
 from elasticsearch_dsl import Search
 from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import RetrieveAPIView, ListAPIView
-from rest_framework.permissions import BasePermission, AllowAny
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from apps.products.models import (Product, Category, Petition, Staff)
+from apps.products.permissions import IsAdminOrReadOnly
 from apps.products.search_indexes import ProductDocument
 from apps.products.serializers import (ProductModelSerializer, CategoryModelSerializer, PetitionModelSerializer,
                                        StaffModelSerializer, SearchModelSerializer)
-
-from django.conf import settings
-
-
-# Permission
-class IsAdminOrReadOnly(BasePermission):
-    def has_permission(self, request, view):
-        if request.method in ["GET", "HEAD", "OPTIONS"]:
-            return True
-        return request.user and request.user.is_staff
 
 
 # Product
 class ProductModelViewSet(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductModelSerializer
-    # pagination_class = PageNumberPagination
+    pagination_class = PageNumberPagination
     permission_classes = [IsAdminOrReadOnly]
 
     @action(detail=False, methods=['post'])
@@ -62,7 +55,6 @@ class CategoryModelViewSet(ModelViewSet):
 class PetitionModelViewSet(ModelViewSet):
     queryset = Petition.objects.all()
     serializer_class = PetitionModelSerializer
-
     # permission_classes = (IsAdminOrReadOnly,)
 
     # count total_price
@@ -77,7 +69,6 @@ class PetitionModelViewSet(ModelViewSet):
 class StaffModelViewSet(ModelViewSet):
     queryset = Staff.objects.all()
     serializer_class = StaffModelSerializer
-
     # permission_classes = (IsAdminOrReadOnly,)
 
     @action(detail=False, methods=['get'])
