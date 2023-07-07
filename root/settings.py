@@ -18,6 +18,7 @@ ALLOWED_HOSTS = ['*']
 MY_APPS = [
     'apps.users',
     'apps.products',
+
 ]
 
 THIRD_PARTY_APPS = [
@@ -128,6 +129,6 @@ REST_FRAMEWORK = {
 
 ELASTICSEARCH_DSL = {
     'default': {
-        'hosts': 'localhost:9200'
-    }
+        'hosts': 'localhost:9200'  # Elasticsearch server URL
+    },
 }
