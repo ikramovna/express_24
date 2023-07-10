@@ -23,8 +23,16 @@ class Product(Model):
     owner = ForeignKey('auth.User', CASCADE)
     image = ImageField(upload_to='product/images/')
 
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name
+
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)
+    #     ProductDocument().update(self)
+    #
+    # def delete(self, *args, **kwargs):
+    #     super().delete(*args, **kwargs)
+    #     ProductDocument().update(self, action='delete')
 
 
 class Petition(Model):

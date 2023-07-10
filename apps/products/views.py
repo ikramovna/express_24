@@ -1,4 +1,3 @@
-from elasticsearch_dsl import Search
 from elasticsearch_dsl.connections import connections
 from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter
@@ -7,11 +6,11 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from apps.products.es_documents import ProductDocument
 from apps.products.models import (Product, Category, Petition, Staff)
 from apps.products.permissions import IsAdminOrReadOnly
+from apps.products.search_indexes import ProductIndex
 from apps.products.serializers import (ProductModelSerializer, CategoryModelSerializer, PetitionModelSerializer,
-                                       StaffModelSerializer, SearchModelSerializer)
+                                       StaffModelSerializer, ProductSerializer)
 from root.settings import ELASTICSEARCH_DSL
 
 
@@ -81,24 +80,24 @@ class StaffModelViewSet(ModelViewSet):
 # Product Search API
 class ProductSearchListAPIView(ListAPIView):
     queryset = Product.objects.all()
-    serializer_class = SearchModelSerializer
+    serializer_class = ProductModelSerializer
     filter_backends = [SearchFilter]
     search_fields = ['name', 'short_description', 'long_description']
     permission_classes = [AllowAny]
 
 
-connections.create_connection(alias='default', hosts=ELASTICSEARCH_DSL['default']['hosts'])
-
-from django_elasticsearch_dsl_drf.filter_backends import (
-    FilteringFilterBackend,
-    SearchFilterBackend,
-)
-from django_elasticsearch_dsl_drf.viewsets import DocumentViewSet
+# connections.create_connection(alias='default', hosts=ELASTICSEARCH_DSL['default']['hosts'])
 
 
-class ProductSearchView(DocumentViewSet):
-    document = ProductDocument
-    serializer_class = SearchModelSerializer
-    filter_backends = [FilteringFilterBackend, SearchFilterBackend]
-    search_fields = ['name', 'short_description', 'long_description']
-    filter_fields = {'category': 'category'}
+class ElasticSearchViewSet(ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+    def get_queryset(self):
+        query = self.request.query_params.get('q')
+        if query:
+            search = ProductIndex.search().query('multi_match', query=query,
+                                                 fields=['name', 'short_description', 'long_description'])
+            ids = [hit.meta.id for hit in search]
+            return Product.objects.filter(id__in=ids)
+        return super(ElasticSearchViewSet, self).get_queryset()

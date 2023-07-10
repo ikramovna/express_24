@@ -1,6 +1,5 @@
-from rest_framework.serializers import ModelSerializer, Serializer
+from rest_framework.serializers import ModelSerializer
 
-from apps.products.es_documents import ProductDocument
 from apps.products.models import (Product, Category, Petition, Staff)
 from apps.users.serializers import UserForSerializer
 
@@ -49,15 +48,7 @@ class StaffModelSerializer(ModelSerializer):
         fields = '__all__'
 
 
-class SearchModelSerializer(ModelSerializer):
+class ProductSerializer(ModelSerializer):
     class Meta:
         model = Product
-        exclude = ()
-
-
-class SearchSerializer(Serializer):
-    class Meta:
-        document = ProductDocument
-        fields = '__all__'
-
-
+        fields = ('name', 'short_description', 'long_description')

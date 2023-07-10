@@ -18,6 +18,7 @@ ALLOWED_HOSTS = ['*']
 MY_APPS = [
     'apps.users',
     'apps.products',
+    'exam',
 
 ]
 
@@ -28,6 +29,7 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    'django_elasticsearch_dsl',
 
 ]
 
