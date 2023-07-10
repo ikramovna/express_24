@@ -48,7 +48,7 @@ class StaffModelSerializer(ModelSerializer):
         fields = '__all__'
 
 
-class ProductSerializer(ModelSerializer):
+class ElasticSearchSerializer(ModelSerializer):
     class Meta:
         model = Product
         fields = ('name', 'short_description', 'long_description')

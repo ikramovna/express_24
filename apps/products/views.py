@@ -1,4 +1,3 @@
-from elasticsearch_dsl.connections import connections
 from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import RetrieveAPIView, ListAPIView
@@ -10,8 +9,7 @@ from apps.products.models import (Product, Category, Petition, Staff)
 from apps.products.permissions import IsAdminOrReadOnly
 from apps.products.search_indexes import ProductIndex
 from apps.products.serializers import (ProductModelSerializer, CategoryModelSerializer, PetitionModelSerializer,
-                                       StaffModelSerializer, ProductSerializer)
-from root.settings import ELASTICSEARCH_DSL
+                                       StaffModelSerializer, ElasticSearchSerializer)
 
 
 # Product
@@ -91,7 +89,7 @@ class ProductSearchListAPIView(ListAPIView):
 
 class ElasticSearchViewSet(ModelViewSet):
     queryset = Product.objects.all()
-    serializer_class = ProductSerializer
+    serializer_class = ElasticSearchSerializer
 
     def get_queryset(self):
         query = self.request.query_params.get('q')
